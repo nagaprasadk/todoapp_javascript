@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Document</title>
+</head>
+<body>
+    <div class="todo-app">
+    <div class="heading-box">
+
+        <h1>ToDo App</h1>
+        <img src="icon.png">
+        </div>
+
+<div class="inp-box">
+
+<input type="text" id="input-box" placeholder="enter task">
+<button onclick="addtask()">Add</button>
+</div>
+
+
+    <div class="list-box">
+        <ul id="list-container">    
+<li class="checked">task1</li>
+<li>task2</li>
+<li>task3</li>
+        </ul>
+    </div>
+
+    <script>
+
+const inputbox=document.getElementById("input-box");
+const listcontainer=document.getElementById("list-container");
+
+
+function addtask(){
+    if(inputbox.value===""){
+        alert("You must enter something");
+    }
+    else{
+        let li=document.createElement("li");
+        li.innerHTML=inputbox.value;
+        listcontainer.appendChild(li);
+        let span=document.createElement("span");
+        span.innerHTML="\u00d7";
+        li.appendChild(span);
+    }
+    savedata()
+    inputbox.value="";
+}
+
+listcontainer.addEventListener("click",function(e){
+    if(e.target.tagName==="LI"){
+        e.target.classList.toggle("checked");
+        savedata()
+    }
+    else if(e.target.tagName==="SPAN"){
+        e.target.parentElement.remove();
+        savedata()
+    }
+},false);
+
+function savedata(){
+    localStorage.setItem("data",listcontainer.innerHTML);
+}
+
+function showtask(){
+    listcontainer.innerHTML=localStorage.getItem("data");
+}
+
+showtask()
+    </script>
+
+   
+
+</div>
+</body>
+</html>
